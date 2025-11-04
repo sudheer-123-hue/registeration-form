@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Successful</title>
+  <style>
+    body {
+      font-family: Poppins, sans-serif;
+      background: linear-gradient(120deg, #89f7fe, #66a6ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    a {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 15px;
+      background: #4facfe;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+    }
+    a:hover { background: #00c6ff; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🎉 Registration Successful!</h2>
+    <p>Welcome, <strong>{{ user.name }}</strong></p>
+    {% if user.photo %}
+      <img src="{{ user.photo.url }}" alt="User Photo">
+    {% endif %}
+    <div>
+      <a href="{{ user.resume.url }}" download>📄 Download Resume</a>
+    </div>
+    <div>
+      <a href="/register_user/">Register Another User</a>
+    </div>
+  </div>
+</body>
+</html>
