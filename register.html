@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            background: linear-gradient(120deg, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 400px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+        }
+        h2 { text-align: center; color: #333; }
+        label { font-weight: 600; }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4facfe;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover { background: #00c6ff; }
+        .preview {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .preview img {
+            width: 100px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Register Here</h2>
+    <form method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <label>Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <label>Password:</label>
+        <input type="password" name="password" required>
+
+        <label>Phone:</label>
+        <input type="text" name="phone" required>
+
+        <label>Upload Photo:</label>
+        <input type="file" name="photo" id="photo" accept="image/*" required onchange="previewPhoto()">
+        <div class="preview">
+            <img id="photoPreview" src="#" alt="Photo Preview" style="display:none;">
+        </div>
+
+        <label>Upload Resume (PDF/DOCX):</label>
+        <input type="file" name="resume" accept=".pdf,.doc,.docx" required>
+
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<script>
+function validateForm() {
+    const file = document.querySelector('input[name="resume"]').files[0];
+    if (file && file.size > 2 * 1024 * 1024) {
+        alert("Resume file too large (Max 2MB)");
+        return false;
+    }
+    return true;
+}
+
+function previewPhoto() {
+    const preview = document.getElementById('photoPreview');
+    const file = document.getElementById('photo').files[0];
+    if (file) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+    }
+}
+</script>
+</body>
+</html>
